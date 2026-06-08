@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr  1 10:12:30 2026
+
+@author: valenchonc
+"""
+
+import numpy.random as rd
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+
+#mpl.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+#mpl.rc('text', usetex=True)
+mpl.rcParams['ytick.labelsize']=30
+mpl.rcParams['xtick.labelsize']=30
+#mpl.rcParams['text.fontsize']=20
+mpl.rcParams['axes.labelsize']=35
+mpl.rcParams['legend.fontsize']=30
+mpl.rcParams['axes.titlesize']=35
+mpl.rcParams['figure.figsize']=(12,12)
+
+#Choix des probas associées à chaque déplacement (gauche, droite, haut, bas)
+g=0.25
+d=0.25
+h=0.25
+b=0.25
+
+#Initialisation des pas
+gauche = 0
+droite = 0
+haut = 0
+bas = 0
+positions = []
+positions.append([0,0])
+x = [0,0]
+N=10000
+
+#Marche
+for i in range(N):
+    u = rd.random()
+    if u < g:
+        x[0] -= 1
+        gauche += 1
+        positions.append(x.copy())
+    
+    elif u < g + d:
+        x[0] += 1
+        droite += 1
+        positions.append(x.copy())
+        
+    elif u < g + d + h:
+        x[1] += 1
+        haut += 1
+        positions.append(x.copy())
+        
+    else:
+        x[1] -= 1
+        bas += 1
+        positions.append(x.copy())
+        
+print("(g,d,h,b)=", g,d,h,b, "  (gauche, droite, haut, bas) expérimentaux=",(gauche, droite, haut, bas), "  proportion de gauche/droite/haut/bas expérimentales=", gauche/(gauche+droite+haut+bas), droite/(gauche+droite+haut+bas), haut/(gauche+droite+haut+bas), bas/(gauche+droite+haut+bas))
+fig, ax = plt.subplots()
+abscisses = [elem[0] for elem in positions]
+ordonnees = [elem[1] for elem in positions]
+ax.scatter(abscisses, ordonnees, c=range(len(abscisses)), cmap='viridis')
+ax.set_title(f"Marche aléatoire 2D selon les paramètre g,d,h,b0={g,d,h,b}", fontsize=16)
+ax.set_xlabel("Position horizontale", fontsize=14)
+ax.set_ylabel("Position verticale", fontsize=14)
+mpl.rcParams['axes.labelsize']=14
+mpl.rcParams['legend.fontsize']=14
+mpl.rcParams['axes.titlesize']=14
+mpl.rcParams['figure.figsize']=(12,12)
+plt.tick_params(axis='both', labelsize=14)
+plt.show()                         
