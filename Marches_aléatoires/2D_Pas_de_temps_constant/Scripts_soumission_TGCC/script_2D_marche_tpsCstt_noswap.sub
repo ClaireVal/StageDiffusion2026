@@ -2,7 +2,7 @@
 #MSUB -n 1
 #MSUB -c 32
 #MSUB -T 86400
-#MSUB -r AnaKMC2DCstSw
+#MSUB -r KMC2DCstNSw
 #MSUB -q milan
 #MSUB -Q normal
 #MSUB -m work,scratch
@@ -16,5 +16,6 @@ module purge
 module load milan/python-mlacs/1.0.2
 
 # --- run
-python Analyse_2D_TGCC_tpsCstt_swap.py
+python Marche_aléatoire_2D_TGCC_tpsCstt_noswap.py
+ccc_msub script_2D_analyse_tpsCstt_noswap.sub
 
