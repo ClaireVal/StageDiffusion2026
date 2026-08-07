@@ -1,0 +1,19 @@
+#!/bin/bash
+#MSUB -n 1
+#MSUB -c 32
+#MSUB -T 86400
+#MSUB -r KMC2DVarSw
+#MSUB -q milan
+#MSUB -Q normal
+#MSUB -m work,scratch
+
+# INTERACTIVE SESSION WITH 1 GPU : ccc_mprun -s -n 1 -c 32 -p a100 -m work,scratch
+
+# --- modules
+# Prepare env
+
+module purge
+module load milan/python-mlacs/1.0.2
+
+# --- run
+python Analyse_2D_TGCC_tpsVar_swap.py
